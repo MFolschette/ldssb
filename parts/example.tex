@@ -1,5 +1,23 @@
-\section{Examples}\label{sec:examples}
+\section{Implementation}\label{sec:examples}
 
+The inference method described in this paper has been implemented as a tool named \texttt{ph2thomas}, as part of
+\textsc{Pint}\footnote{Available at \url{http://process.hitting.free.fr}}, which gathers PH related
+tools.
+Our implementation mainly consists in ASP programs that are solved using Clingo\footnote{Available
+at \url{http://potassco.sourceforge.net}}.
+
+Applied to the example in \pref{fig:runningPH} where cooperations have been defined,
+the current implementation infers the IG and parametrization given in \pref{fig:runningBRN}.
+It can also successfully handle large PH models of BRNs found in the literature
+such as an ERBB receptor-regulated G1/S transition model from \cite{Sahin09} which contains 20
+components, and a T-cells receptor model from \cite{Klamt06} which contains 40
+components\footnote{Both models are available as examples distributed with \textsc{Pint}.}.
+For each model, IG and parameters inferences are performed together in less than a second
+on a standard desktop computer.
+
+
+
+\begin{comment}
 The inference method described in this paper has been implemented as part of
 \textsc{Pint}\footnote{Available at \url{http://process.hitting.free.fr}}, which gathers PH related
 tools.
@@ -37,3 +55,4 @@ this model would therefore be more efficiently studied as a PH than as a BRN.
 We note that the complexity of the method is exponential in the number of regulators of one
 component and linear in the number of components.
 % We note that despite its smaller size in term of components, the ERBB transmission model takes more time to be computed because the biggest cooperative sorts contain more processes (up to 32 processes) than in the T-cells receptor model (up to 8 processes).
+\end{comment}

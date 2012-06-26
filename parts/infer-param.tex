@@ -9,27 +9,10 @@ set of inferred parameters, the PH dynamics and some biological constraints on p
 
 This subsection presents some results related to the inference of independent discrete parameters from a given PH. These results are equivalent to those presented in \cite{PMR10-TCSB}, with notation adapted to be shared with the previous section.
 In addition, we introduce the well-formed PH for parameter inference property (\pref{pro:wf-ph-K}),
-which implies that the inferred IG does not contain any unsigned interactions, and thus can be seen as the
+which implies that the inferred IG does not contain any unsigned interactions, and thus can be seen as a
 regular IG $(\Gamma, E_+, E_-)$,
 and that any processes in $\levelsA{b}{a}$ (resp. $\levelsI{b}{a}$) share the same behavior
 regarding $a$.
-\begin{property}[Well-formed PH for parameter inference]\label{pro:wf-ph-K}
-A PH is well-formed for parameter inference if and only if
-it is well-formed for IG inference, and
-the IG $(\Gamma, E_+, E_-, E_\pm)$ inferred by \pref{pps:inference-IG}
-verifies $E_\pm=\emptyset$ and if the following property holds:
-\begin{align}
-\begin{split}
-\forall b\in \GRNreg{a} &,
-	\forall (i,j\in\levelsA{b}{a} \vee i,j\in\levelsI{b}{a}), \\
-& \qquad	\forall c, ( (b\neq a\wedge c=a) \vee (c\in\PHpredec{a} \wedge b\in\PHdirectpredec{c})), \\
-& \qquad \qquad
-			\PHfrappe{b_i}{c_k}{c_l}\in\PHa \Leftrightarrow
-				\PHfrappe{b_j}{c_k}{c_l}\in\PHa
-\end{split}
-\label{eq:wf-levels}
-\end{align}
-\end{property}
 
 Let $K_{a,A,B}$ be the parameter we want to infer for a given component $a \in \Gamma$
 %and $A,B \in \GRNallres{a}$ a configuration of resources of $a$ (activators and inhibitors).
@@ -40,49 +23,19 @@ For each sort $b \in \GRNreg{a}$, we define a context $C^b_{a,A,B}$ in \pref{eq:
 The context of a cooperative sort $\upsilon$ that regulates $a$ is given in
 \pref{eq:param_context_coop} as the set of focal processes matching the current configuration.
 $C_{a,A,B}$ refers to the union of all these contexts (\pref{eq:K-ctx}).
-\begin{align}
-\label{eq:param_context}
-\forall b\in\Gamma,~
-C_{a,A,B}^b & \DEF \begin{cases}
-\levelsA{b}{a} & \text{if $b \in A$,}\\
-\levelsI{b}{a} & \text{if $b \in B$,}\\
-L_b		& \text{otherwise;}\\
-\end{cases}
-\\
-\label{eq:param_context_coop}
-\forall \upsilon \in \PHpredec{a}\setminus\Gamma,~
-C_{a,A,B}^\upsilon & \DEF \{
-\upsilon(\sigma) \mid \sigma \in \textstyle\prod_{c\in\PHdirectpredec{\upsilon}}C_{a,A,B}^c \}
-\\
-C_{a,A,B} & \DEF \textstyle\bigcup_{b\in\PHpredec{a}} C^b_{a,A,B}
-\label{eq:K-ctx}
-\end{align}
 
 The parameter $K_{a,A,B}$ specifies to which values $a$ eventually evolves as long as the context
-$C_{a,A,B}$ holds, which is precisely the definition of the $\focals$ function
-(\pref{def:focals} in \pref{ssec:focal}),
+$C_{a,A,B}$ holds, which is precisely the definition of the $\focals$ function (\pref{def:focals}),
 where the focals reachability property can be derived from \pref{pro:wf-ph-K} and
 \pref{eq:param_context_coop}.
 Hence $K_{a,A,B} = \focals(a,C^a_{a,A,B},C_{a,A,B})$ if this latter is a non-empty interval
 (\pref{pps:param_K}).
 
-\begin{proposition}[Parameter inference]
-\label{pps:param_K}
-Let $(\PHs, \PHl, \PHh)$ be a Process Hitting well-formed for parameter inference, and $\IG = (\Gamma,
-E_+, E_-)$ the inferred IG.
-Let $A$ (resp. $B$) $\subseteq \Gamma$ be the set of regulators that activate (resp. inhibit) a sort
-$a$.
-%If $\focals(a,C_{a,A,B})$ is a non-empty interval, then $K_{a,A,B} = \focals(a, C_{a,A,B})$.
-If $\focals(a,C^a_{a,A,B},C_{a,A,B})=[a_i;a_j]$ is a non-empty interval, 
-	then $K_{a,A,B} = [i;j]$.
-\end{proposition}
-
 \begin{example*}
-Applied to the PH in \pref{fig:runningPH-1}, we obtain, for instance, 
-$K_{b,\{a\},\emptyset} = [0 ; 1]$ and
-$K_{a,\{b,c\},\emptyset} = [2 ; 2]$,
-while $K_{a,\{b\},\{c\}}$ can not be inferred.
-For the PH in \pref{fig:runningPH-2}, this latter is evaluated to $[1;1]$.
+Applied to the PH in \pref{fig:runningPH}, we obtain, in particular,
+$K_{b,\{a\},\emptyset} = [0 ; 1]$,
+$K_{a,\{b,c\},\emptyset} = [2 ; 2]$ and
+$K_{a,\{b\},\{c\}} = [1;1]$.
 \end{example*}
 
 Given the \pref{pps:param_K}, we see that in some cases, the inference of the targeted parameter is impossible.
@@ -96,7 +49,7 @@ regulators.
 
 When building a BRN, one has to find the parametrization that best describes the desired behavior of the studied system.
 Complexity is inherent to this process as the number of possible parametrizations for a given IG is exponential w.r.t. the number of components.
-However, the method of parameters inference presented in this section gives some information about necessary parameters given a certain dynamics described by a PH.
+However, the method of parameters inference presented in the previous subsection gives some information about necessary parameters given a certain dynamics described by a PH.
 This information thus drops the number of possible parametrizations, allowing to find the desired behavior more easily.
 
 We first delimit the validity of a parameter (\pref{pro:K-valid}) in order to ensure that any
@@ -106,80 +59,21 @@ of the value of the parameter in the matching context.
 Thus, assuming \pref{pro:wf-ph-K} holds, any transition in the inferred BRN corresponds to at least
 one transition in the PH, proving the correctness of our inference.
 We remark that any parameter inferred by \pref{pps:param_K} satisfies this property.
-
-\begin{property}[Parameter validity]\label{pro:K-valid}
-A parameter $K_{a,A,B}$ is valid w.r.t. the PH iff the following equation is verified:
-\begin{align*}
-\forall a_i\in C^a_{a,A,B},
-		a_i \notin K_{a,A,B} \Longrightarrow (
-  \exists \PHfrappe{c_k}{a_i}{a_j}\in\PHa, & c_k \in C^c_{a,A,B} \\
- \wedge a_i < K_{a,A,B} \Rightarrow j > i 
- & \wedge  a_i > K_{a,A,B} \Rightarrow j <i )
-\end{align*}
-\end{property}
-		
-
 Then, we use some additional biological constraints on Thomas' parameters given in
-\cite{BernotSemBRN}, that we sum up in the following three properties:
+\cite{BernotSemBRN}, that we sum up in Properties \pref{prop:param_enum_extreme},
+\pref{prop:param_enum_activity} and \pref{prop:param_enum_monotonicity}.
 
-\begin{property}[Extreme values assumption]
-Let $\IG = (\Gamma, E_+, E_-)$ be an IG. A parametrization $K$ on $\IG$ satisfies the \emph{extreme values assumption} iff:
-\label{prop:param_enum_extreme}
-\[
-  \forall b \in \Gamma, \GRNreg{b} \neq \emptyset \Rightarrow 0 \in K_{b,\emptyset,\GRNreg{b}} \wedge l_b \in K_{b,\GRNreg{b},\emptyset}
-\]
-\end{property}
+The use of Answer Set Programming (ASP) finds a particularly interesting application in the enumeration of admissible parametrizations regarding the properties presented above, as it can be naturally formulated by using aggregates to enumerate all possible parametrizations, and constraints to remove all non-admissible models.
 
-\begin{property}[Activity assumption]
-\label{prop:param_enum_activity}
-Let $\IG = (\Gamma, E_+, E_-)$ be an IG. A parametrization $K$ on $\IG$ satisfies the \emph{activity assumption} iff:
-\begin{align*}
-  \forall b \in \Gamma, \forall a \in \GRNreg{b}, \exists (A;B) \in \GRNallres{a}, K_{b,A,B} <_{[]} K_{b,A \cup \{b\},B \setminus \{b\}}
-\\
-  \forall b \in \Gamma, \forall a \in \GRNreg{b}, \exists (A;B) \in \GRNallres{a}, K_{b,A \setminus \{b\},B \cup \{b\}} <_{[]} K_{b,A,B}
-\end{align*}
-\end{property}
 
-\begin{property}[Monotonicity assumption]
-\label{prop:param_enum_monotonicity}
-Let $\IG = (\Gamma, E_+, E_-)$ be an IG. A parametrization $K$ on $\IG$ satisfies the \emph{monotonicity assumption} iff:
-\[
-  \forall b \in \Gamma, \forall (A;B), (A';B') \in \GRNallres{b},
-  A \subset A' \wedge B' \subset B \Rightarrow K_{b,A,B} \leq_{[]} K_{b,A',B'}
-\]
-\end{property}
 
 \begin{comment}
-\begin{definition}[Admissible parametrization \& Admissible parametrization with respect to inferred parameters]
-\label{def:param_enum_inf}
-Let $\PH = (\PHs, \PHl, \PHh)$ be a PH so that IG inference is possible, and $\IG = (\Gamma, E_+,
-E_-)$ the inferred IG.
-A parametrization $K$ on $\IG$ is said to be \emph{admissible} iff it respects
-the extreme values assumption, the activity assumption and the monotonicity assumption.
-A parametrization $K$ on $\IG$ is said to be \emph{admissible with respect to the
-inferred parameters} iff it is admissible and that all parameters that can be inferred regarding
-\pref{pps:param_K} are equal to their inferred value.
-\end{definition}
-
-\todo{utilité de “Admissible parametrization” seul ?}
-\end{comment}
-
-
 \subsection{Answer Set Programming implementation concepts}
 
 \newcommand{\ti}[1]{\texttt{\textit{#1}}}
 \newcommand{\aspil}[1]{\texttt{#1}}
 \newcommand{\asp}[1]{\begin{itemize} \item[] \aspil{#1} \end{itemize}}
 
-It is essential to get an efficient method to enumerate all the admissible parametrizations.
-we focus on Answer Set Programming (ASP) \cite{Baral03} to address this issue.
-The motivations are following:
-\begin{itemize}
-  \item ASP efficiently tackles the inherent complexity of the models we use, thus allowing an efficient execution of the formal tools defined in this paper,
-  \item it is convenient to enumerate a large set of possible answers,
-  \item it allows us to easily constrain the answers according to some properties.
-\end{itemize}
-We now synthesize some key points to better make the reader understand our ASP implementation with the enumeration example.
 
 All information describing the studied model (PH and inferred IG \& parameters) can be expressed in ASP using facts.
 For functional purposes, we assign a unique label to each couple $A,B$ of activators and inhibitors of a given component, which allows to refer to the related parameter (in the following, we note $K^p_{a,A,B}$ the parameter of component $a$ whose regulators $A,B$ are assigned to the label $p$).
@@ -226,3 +120,4 @@ Of course, other assumptions can be formulated in the same way.
 This subsection succinctly described how we write ASP programs to represent a model and solve all steps of Thomas' modeling inference.
 It finds a particularly interesting application in the enumeration of parameters: all possible parametrizations are generated in separate answer sets, and integrity constraints are formulated to remove those that do not fit the assumptions of admissible parametrizations,
 thus reducing the number of interesting parametrizations to be considered in the end.
+\end{comment}
