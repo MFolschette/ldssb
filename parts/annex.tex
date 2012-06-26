@@ -4,6 +4,53 @@
 
 \section{Formal definitions}
 
+\paragraph{Notations.}
+$[i;j]$ is the set of integers $\{ i, i+1, \dots, j \}$;
+we note $[i_1;j_1] \leq_{[]} [i_2;j_2] \EQDEF (i_1\leq j_1\wedge i_2\leq j_2)$
+and $[i_1;j_1] <_{[]} [i_2;j_2] \EQDEF
+%       [i_1;j_1] \leq_{[]} [i_2;j_2] \wedge (i_1\neq i_2 \vee j_1\neq j_2)$.
+(i_1<i_2 \wedge j_1\leq j_2) \vee (i_1\leq i_2\wedge j_1 < j_2)$.
+Given an integer $k$, $k<[i;j] \EQDEF k <i$ and $k>[i;j]\EQDEF k > j$.
+
+
+
+%%% Frameworks
+
+% BRN
+
+\begin{definition}[Effective levels ($\levels$)]\label{def:levels}
+Let $(\Gamma,E_+,E_-)$ be an IG and $a, b \in \Gamma$ two of its components:
+\begin{itemize}
+  \item if $a \xrightarrow{t} b \in E_+$, $\levelsA{a}{b} \DEF [t; l_a]$ and
+    $\levelsI{a}{b} \DEF [0; t-1]$;
+  \item if $a \xrightarrow{t} b \in E_-$, $\levelsA{a}{b} \DEF [0; t-1]$ and
+    $\levelsI{a}{b} \DEF [t; l_a]$;
+  \item otherwise, $\levelsA{a}{b} \DEF \levelsI{a}{b} \DEF \emptyset$.
+\end{itemize}
+\end{definition}
+
+\begin{comment}
+\begin{definition}[Asynchronous dynamics]\label{def:dynamics}
+Let $s$ be a state of a BRN using Thomas' parameters $(\IG, K)$ where $\IG = (\Gamma, E_+, E_-)$.
+The state that succeeds to $s$ is given by the indeterministic function $f(s)$:
+\begin{align*}
+  f(s)  & = s' \Leftrightarrow \exists a \in \Gamma,
+    \GRNget{s'}{a} = f^a(s) \wedge
+    \forall b \in \Gamma, b \neq a, \GRNget{s}{b} = \GRNget{s'}{b}
+    \quad\text{, with}\\
+  f^a(s) & =
+  \begin{cases}
+    \GRNget{s}{a} + 1 & \text{if } \GRNget{s}{a} < K_{a,A,B} \\% \GRNres{a}{s}} \\
+    \GRNget{s}{a} & \text{if } \GRNget{s}{a} \in K_{a,A,B} \\ %\GRNres{a}{s}}\\
+    \GRNget{s}{a} - 1 & \text{if } \GRNget{s}{a} > K_{a,A,B} % \GRNres{a}{s}}
+  \end{cases}
+\text{, where $A,B=\GRNres{a}{s}$.}
+\end{align*}
+\end{definition}
+\end{comment}
+
+
+
 %%% Interaction Graph inference
 
 % Well-formed Process Hitting for Interaction Graph Inference
@@ -13,7 +60,7 @@
 \label{eq:PHa-ctx}
 \\
 \begin{split}
-E  & \DEF \{(a_j,a_k)\in (S_a \times \PHl_a) \mid
+E & \DEF \{(a_j,a_k)\in (S_a \times \PHl_a) \mid
                         \exists\PHfrappe{b_i}{a_j}{a_k}\in \PHa(S_a,\ctx) \}
 \\
 V & \DEF S_a \cup \{ a_k\in L_a\mid \exists (a_j,a_k)\in E\}
@@ -40,13 +87,8 @@ $\{b_i,b_j\} \subset \ctx \wedge b\neq a \Rightarrow i=j$.
 \end{definition}
 
 \begin{equation}
-\Gamma \DEF \{a \in \PHs \mid \nexists \PHfrappe{b_i}{a_j}{a_k} \in \PHa, |j - k| > 1\} \\
+\Gamma \DEF \{a \in \PHs \mid \nexists \PHfrappe{b_i}{a_j}{a_k} \in \PHa, |j - k| > 1\}
 \label{eq:PH-components}
-\end{equation}
-
-\begin{equation}
-\forall a \in \PHs, \PHdirectpredec{a} \DEF \{b \in \PHs \mid \exists \PHfrappe{b_i}{a_j}{a_k}\in\PHa \}
-\label{eq:ph_direct_predec}
 \end{equation}
 
 \begin{property}[Well-formed cooperative sort]\label{pro:wf-cooperative-sort}
@@ -270,7 +312,7 @@ Let $\IG = (\Gamma, E_+, E_-)$ be an IG. A parametrization $K$ on $\IG$ satisfie
 \centering
 \scalebox{1.1}{
 \begin{tikzpicture}
-\path[draw,use as bounding box] (-2,-6) rectangle (7,0.5);
+\path[use as bounding box] (-2,-6) rectangle (7,0.5);
 
 \TSort{(0,0)}{b}{2}{t}
 \TSort{(0,-3.8)}{c}{2}{b}

@@ -8,7 +8,7 @@ differential equations, a discrete modeling approach was initiated by René Thom
 
 In this approach, the different levels of a component, such as concentration or expression levels, are abstractly represented by (positive) integer values and transitions between these levels may be considered as instantaneous.
 Hence, qualitative state graphs may be derived from which we are able to formally find out all the possible behaviors expressed as sequences of transitions between these states.
-Nevertheless, these dynamics can be precisely established only with regard to some discrete parameters which stand for a kind of ``focal points'', i.e. the evolutionary tendency from each state and depending of the set of resources in this very state, that is, the set of the other currently interacting components.
+Nevertheless, these dynamics can be precisely established only with regard to some discrete parameters which stand for a kind of ``focal points'', i.e. the evolutionary tendency from each state and depending on the set of resources in this very state, that is, the set of the other currently interacting components.
 Hereafter, we refer to these discrete parameters as Thomas' parameters.
 
 Thomas' modeling has motivated numerous works around the link between the Interaction Graph (IG)
@@ -48,7 +48,7 @@ lead to the satisfaction of the known cooperating constraints.
 The resulting BRN dynamics is ensured to respect the PH dynamics, \ie no spurious transitions are
 made possible by the inference.
 Answer Set Programming (ASP) \cite{Baral03} turns out to be effective for these enumerative searches,
-as it efficiently tackles with the inherent complexity of the models we use, thus allowing an efficient execution of the formal tools defined in this paper, and it is convenient to enumerate large sets of possible answers.
+as it efficiently tackles with the inherent complexity of the models we use, thus allowing an efficient execution of the formal tools defined in this paper, and is convenient to enumerate large sets of possible answers.
 
 The outcome of this work is twofold.
 The first benefit is that such an approach makes it possible to refine the construction of
@@ -71,11 +71,3 @@ In our approach, we intend to focus on the Thomas' parameters inference and we c
 and discuss its implementation in ASP.
 \pref{sec:examples} illustrates the applicability of our method on simple examples
 and large biological models.
-
-\paragraph{Notations.}
-$[i;j]$ is the set of integers $\{ i, i+1, \dots, j \}$;
-we note $[i_1;j_1] \leq_{[]} [i_2;j_2] \EQDEF (i_1\leq j_1\wedge i_2\leq j_2)$
-and $[i_1;j_1] <_{[]} [i_2;j_2] \EQDEF 
-%	[i_1;j_1] \leq_{[]} [i_2;j_2] \wedge (i_1\neq i_2 \vee j_1\neq j_2)$.
-(i_1<i_2 \wedge j_1\leq j_2) \vee (i_1\leq i_2\wedge j_1 < j_2)$.
-Given an integer $k$, $k<[i;j] \EQDEF k <i$ and $k>[i;j]\EQDEF k > j$.

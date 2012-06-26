@@ -2,8 +2,8 @@
 
 In order to infer a complete BRN, one has to find the Interaction Graph (IG) first, as some
 constraints on the parametrization rely on it.
-Inferring the IG is an abstraction step which consists in determining the global influence of
-components on each of its successors.
+%Inferring the IG is an abstraction step which consists in determining the global influence of components on each of its successors.
+Inferring the IG is an abstraction step which consists, from atomistic actions of a PH, in determining the global influence of components on each of its successors.
 We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference is to be
 performed.
 
@@ -11,7 +11,9 @@ We call \emph{context} a set $\ctx$ of processes that are potentially active.
 Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal
 processes} $\focals(a,S_a,\ctx)$ (\pref{def:focals}) amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$ that is possibly strict (\pref{def:strict-ctx}).
 If $\focals(a,S_a,\ctx)$ is not empty, we expect, when the context $\ctx$ applies, to always reach one focal process in a bounded number of actions.
-If the set of focal processes is empty for a given context, this means that no local stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
+If the set of focal processes is empty for a given context, this means that no stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
+
+
 
 \subsection{Well-formed Process Hitting for Interaction Graph Inference}\label{ssec:wf}
 
@@ -47,8 +49,7 @@ At this point we can divide the set of sorts $\PHs$ into components ($\Gamma$, s
 ($\PHs \setminus \Gamma$) that will not appear in the IG. 
 We define as $\PHpredec{a}$ (\pref{eq:ph_predec}) the set of \emph{predecessors} of a sort $a$, that is, the sorts influencing $a$
 by considering direct actions and possible intermediate cooperative sorts.
-The predecessors of $a$ that are components are the \emph{regulators} of $a$, denoted $\PHpredecgene{a}$
-(\pref{eq:regulators}).
+The \emph{regulators} of $a$, denoted $\PHpredecgene{a}$ (\pref{eq:regulators}), are its predecessors that are components.
 
 Inferring the underlying IG of a PH consists in finding the influence on a component of all of its regulators.
 We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
@@ -72,8 +73,8 @@ always terminates.
 We rely on the focal processes given a context that represents a possible configuration of the regulators of a component.
 For this, we define the set $\ctx_g(\sigma)$ of processes hitting a sort in a given context, considering also cooperative sorts (\pref{eq:ctx-sigma}).
 This reasoning can be straightforwardly applied to a PH when inferring the influence of $b$ on $a$
-when $b\neq a$ (\pref{eq:edges-inference-b}), by considering the set $\gamma(b\rightarrow a)$ of components cooperating with $b$ to hit $a$ (\pref{eq:cooperating-with-b}). In the case of a self-influence (\ie{} $b = a$), it is required to consider groups of sorts having a cooperation on $a$, denoted $X(a)$ (\pref{eq:influence-groups}). Finally, if we denote $\sigma\{b_i\}$ the configuration $\sigma$ where the process of sort $b$ has been replaced
-by $b_i$, then comparing the sets $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_i\}))$ and $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_{i+1}\}))$ gives the atomistic influence of $b$ on $a$ for the threshold $i$, as detailed in \pref{pps:inference-edges}.
+when $b\neq a$ (\pref{eq:edges-inference-b}), by considering the set $\gamma(b\rightarrow a)$ of components cooperating with $b$ to hit $a$ (\pref{eq:cooperating-with-b}). In the case of a self-influence (when $b = a$) it is required to consider groups of sorts having a cooperation on $a$, denoted $X(a)$ (\pref{eq:influence-groups}). Finally, if we denote $\sigma\{b_i\}$ the configuration $\sigma$ where the process of sort $b$ has been replaced
+by $b_i$, then comparing the sets $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_i\}))$ and $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_{i+1}\}))$ gives the \emph{atomistic influence} of $b$ on $a$ for the threshold $i$, as detailed in \pref{pps:inference-edges}.
 
 \begin{comment}
 Given a configuration $\sigma\in\prod_{c\in\gamma(b\rightarrow a)} L_c$, 
