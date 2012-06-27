@@ -63,6 +63,19 @@ Then, we use some additional biological constraints on Thomas' parameters given 
 \cite{BernotSemBRN}, that we sum up in Properties \pref{prop:param_enum_extreme},
 \pref{prop:param_enum_activity} and \pref{prop:param_enum_monotonicity}.
 
+This approach can be considered as abductive reasoning because of the information added by the enumeration.
+If we denote:
+\begin{itemize}
+  \item $B$ the resulting BRN that observes a behavior included into the one of the original PH,
+  \item $M$ the IG and the series of necessary parameters inferred from the original PH,
+  \item $K$ the hypothesis that we select the complete parametrization $K$
+\end{itemize}
+The set of parametrizations $K$ that answers our expectations are the ones so that:
+\begin{itemize}
+  \item $K$ is compatible with $M$, that is, all parameters of $K$ are compatible with the inferred parameters in $M$,
+  \item $M \wedge K \models B$, that is, the parametrization $K$ found from enumeration and the inferred IG represent a BRN observing the behavior included into the behavior of the original PH.
+\end{itemize}
+
 The use of Answer Set Programming (ASP) finds a particularly interesting application in the enumeration of admissible parametrizations regarding the properties presented above, as it can be naturally formulated by using aggregates to enumerate all possible parametrizations, and constraints to remove all non-admissible models.
 
 
