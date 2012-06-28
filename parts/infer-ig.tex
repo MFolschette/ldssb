@@ -1,121 +1,67 @@
 \section{Interaction Graph Inference}\label{sec:infer-IG}
 
-In order to infer a complete BRN, one has to find the Interaction Graph (IG) first, as some
-constraints on the parametrization rely on it.
+In order to infer a complete BRN, one has to find the Interaction Graph (IG) first, as some constraints on the parametrization rely on it.
 %Inferring the IG is an abstraction step which consists in determining the global influence of components on each of its successors.
-Inferring the IG is an abstraction step which consists, from atomistic actions of a PH, in determining the global influence of components on each of its successors.
-We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference is to be
-performed.
+Inferring the IG is an abstraction step which consists, from atomistic actions of a PH, in determining the global influence of every component on each of its successors.
+We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference is to be performed.
 
 We call \emph{context} a set $\ctx$ of processes that are potentially active.
-Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal
-processes} $\focals(a,S_a,\ctx)$ (\pref{def:focals}) amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$ that is possibly strict (\pref{def:strict-ctx}).
-If $\focals(a,S_a,\ctx)$ is not empty, we expect, when the context $\ctx$ applies, to always reach one focal process in a bounded number of actions.
+Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal processes} $\focals(a,S_a,\ctx)$ %(\pref{def:focals})
+amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$. % that is possibly strict (\pref{def:strict-ctx}).
+If $\focals(a,S_a,\ctx)$ is not empty, we expect, under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
 If the set of focal processes is empty for a given context, this means that no stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
 
 
 
 \subsection{Well-formed Process Hitting for Interaction Graph Inference}\label{ssec:wf}
 
-The inference of an IG from a PH assumes that the PH defines two types of sorts:
-the sorts corresponding to BRN components, and the cooperative sorts.
-This leads to the characterization of a \emph{well-formed} PH for IG inference.
-
-The identification of sorts modeling components relies on the observation that their processes
-represent (ordered) qualitative levels.
-Hence, to respect BRNs dynamics, an action on such a sort cannot make it bounce to a process at a distance more than one.
-The set of sorts satisfying such a condition is referred to as $\Gamma$
-(\pref{eq:PH-components}), and is therefore the set of components of the BRN to infer.
-
+The inference of an IG from a PH assumes that the PH defines two types of sorts: the sorts corresponding to BRN components, that will appear in the IG, and the cooperative sorts.
+%characterizing a \emph{well-formed} PH for IG inference.
+The identification of sorts modeling components relies on the observation that their processes represent (ordered) qualitative levels;
+hence, to respect BRNs dynamics, an action on such a sort cannot make it bounce to a process at a distance more than one.
+%The set of sorts satisfying such a condition is referred to as $\Gamma$, % (\pref{eq:PH-components})
+%and is therefore the set of components of the BRN to infer.
 Any sort that does not act as a component should then be treated as a cooperative sort, whose role is to compute the current state of set of cooperating processes, as explained in \pref{ssec:PH}.
-Hence, for each sub-state of its predecessors, a cooperative sort should converge to a unique focal process, as expressed by \pref{pro:wf-cooperative-sort}.
-Finally, \pref{pro:wf-ph} sums up the conditions for a Process Hitting to be suitable for IG inference.
-In addition of having either component sorts or well-formed cooperative sorts, we also require that there is no cycle between cooperative sorts, and that sorts being never hit (\ie{} serving as an invariant environment) are components.
+Thus, for each sub-state of its predecessors, a cooperative sort should converge to a unique focal process. %, as expressed by \pref{pro:wf-cooperative-sort}.
+%Finally, \pref{pro:wf-ph} sums up the conditions for a Process Hitting to be suitable for IG inference.
+In addition of having either component sorts or well-formed cooperative sorts, we also require that there is no cycle between cooperative sorts, and that sorts being never hit (\ie serving as an invariant environment) are components.
 
 \begin{example*}
-In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort as defined in \pref{pro:wf-cooperative-sort}, because:
+In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort, % as defined in \pref{pro:wf-cooperative-sort},
+because:
 \begin{align*}
 \focals(bc, \PHl_{bc}, \{b_0, c_0\} \cup \PHl_{bc}) = \{bc_{00}\} && \focals(bc, \PHl_{bc}, \{b_0, c_1\} \cup \PHl_{bc}) = \{bc_{01}\} \\
 \focals(bc, \PHl_{bc}, \{b_1, c_0\} \cup \PHl_{bc}) = \{bc_{10}\} && \focals(bc, \PHl_{bc}, \{b_1, c_1\} \cup \PHl_{bc}) = \{bc_{11}\}
 \end{align*}
-Hence, \pref{fig:runningPH} is a well-formed PH for IG inference with $\Gamma = \{a,b,c\}$.
+Hence, this PH is well-formed for IG inference, and $a$, $b$ and $c$ are the components.
 \end{example*}
 
 
 
 \subsection{Interaction Inference}\label{ssec:infer-IG}
 
-At this point we can divide the set of sorts $\PHs$ into components ($\Gamma$, see \pref{eq:PH-components}) and cooperative sorts
-($\PHs \setminus \Gamma$) that will not appear in the IG. 
-We define as $\PHpredec{a}$ (\pref{eq:ph_predec}) the set of \emph{predecessors} of a sort $a$, that is, the sorts influencing $a$
-by considering direct actions and possible intermediate cooperative sorts.
-The \emph{regulators} of $a$, denoted $\PHpredecgene{a}$ (\pref{eq:regulators}), are its predecessors that are components.
-
+%At this point we can divide the set of sorts $\PHs$ into components ($\Gamma$, see \pref{eq:PH-components}) and cooperative sorts ($\PHs \setminus \Gamma$) that will not appear in the IG. 
+%We define as $\PHpredec{a}$ (\pref{eq:ph_predec}) the set of \emph{predecessors} of a sort $a$, that is, the sorts influencing $a$
+%by considering direct actions and possible intermediate cooperative sorts.
+%The \emph{regulators} of $a$, denoted $\PHpredecgene{a}$ (\pref{eq:regulators}), are its predecessors that are components.
+We define the \emph{predecessors} of a sort $a$ as the sorts influencing $a$ through direct actions or possible intermediate cooperative sorts,
+and the \emph{regulators} of $a$ as its predecessors that are components.
 Inferring the underlying IG of a PH consists in finding the influence on a component of all of its regulators.
-We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
 This is analogous to standard IG inferences from discrete maps \cite{RiCo07}.
+We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
+This reasoning can be straightforwardly applied %to a PH when inferring the influence of $b$ on $a$
+when $b\neq a$, % (\pref{eq:edges-inference-b}),
+by considering the set of components cooperating with $b$ to hit $a$. %(\pref{eq:cooperating-with-b}).
+In the case of a self-influence (when $b = a$) it is required to consider the distinct groups of sorts having a cooperation on $a$.
+Finally, the method relies on the comparison of the focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$.
 
-\begin{comment}
-Given a set $g$ of components and a configuration (\ie a sub-state) $\sigma$, $\ctx_g(\sigma)$
-refers to the set of processes hitting $a$ regulated by any sort in $g$ (\pref{eq:ctx-sigma}).
-If $g=\{b\}$, we simple note $\ctx_b(\sigma)$.
-This set is composed of the active processes of sorts in $g$, and the focal process (assumed
-unique) of the cooperative sorts $\upsilon$ hitting $a$ that have a predecessor in $g$.
-The evaluation of the focal process of $\upsilon$ in context $\sigma$, denoted $\upsilon(\sigma)$,
-relies on \pref{pro:wf-cooperative-sort}, which gives its value when all the direct predecessors of
-$\upsilon$ are defined in $\sigma$.
-When a predecessor $\upsilon'$ is not in $\sigma$, we extend the evaluation by recursively computing
-the focal value of $\upsilon'$ is $\sigma$, as stated in \pref{eq:cooperative-eval}.
-Because there is no cycle between cooperative sorts, this recursive evaluation of $\upsilon(\sigma)$
-always terminates.
-\end{comment}
-
-We rely on the focal processes given a context that represents a possible configuration of the regulators of a component.
-For this, we define the set $\ctx_g(\sigma)$ of processes hitting a sort in a given context, considering also cooperative sorts (\pref{eq:ctx-sigma}).
-This reasoning can be straightforwardly applied to a PH when inferring the influence of $b$ on $a$
-when $b\neq a$ (\pref{eq:edges-inference-b}), by considering the set $\gamma(b\rightarrow a)$ of components cooperating with $b$ to hit $a$ (\pref{eq:cooperating-with-b}). In the case of a self-influence (when $b = a$) it is required to consider groups of sorts having a cooperation on $a$, denoted $X(a)$ (\pref{eq:influence-groups}). Finally, if we denote $\sigma\{b_i\}$ the configuration $\sigma$ where the process of sort $b$ has been replaced
-by $b_i$, then comparing the sets $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_i\}))$ and $\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_{i+1}\}))$ gives the \emph{atomistic influence} of $b$ on $a$ for the threshold $i$, as detailed in \pref{pps:inference-edges}.
-
-\begin{comment}
-Given a configuration $\sigma\in\prod_{c\in\gamma(b\rightarrow a)} L_c$, 
-$\focals(a,\{a_i\},\ctx_b(\sigma))$ gives the bounces that a given process $a_i$ can make in the
-context $\ctx_b(\sigma)$.
-We note $\sigma\{b_i\}$ the configuration $\sigma$ where the process of sort $b$ has been replaced
-by $b_i$.
-If there exists $b_i,b_{i+1}\in L_b$ such that one bounce in 
-$\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_i\}))$
-has a lower (resp. higher) level that one bounce in
-$\focals(a, \{\sigma[a]\}, \ctx_b(\sigma\{b_{i+1}\}))$, then
-$b$ as positive (resp. negative) influence on $a$ with a maximum threshold $l=i+1$.
-
-Then, we infer that $a$ has a self-influence if its current level can have an impact on its own
-evolution at a given configuration $\sigma$.
-We consider here a configuration $\sigma$ of a group $g$ of sorts having a cooperation on $a$.
-This set of sort groups is given by $X(a)$ (\pref{eq:influence-groups}) which returns the set of
-connected components (noted $\mathcal C$) of the graph linking two regulators $b,c$ of $a$ if there
-is a cooperative sort hitting $a$ regulated by both of them.
-Given $a_i,a_{i+1}\in L_a$, we pick $a_j\in\focals(a,\{a_i\},\ctx_g(\sigma\{a_i\}))$ and
-$a_k\in\focals(a,\{a_{i+1}\},\ctx_g(\sigma\{a_{i+1}\}))$.
-If $k=j+1$, we can not conclude as there is no difference in the evolution of both levels.
-If $k\neq j+1$ and $k-j\neq 0$, then $a_i$ and $a_{i+1}$ have divergent evolutions: we infer an
-influence of sign of $k-j$ at threshold $i+1$.
-We note that some aspects of this inference are arbitrary and may impact the number of parameters to
-infer in the next section.
-In particular, in some cases, the use of intervals for Thomas' parameters drops the requirement of
-inferring a self-activation.
-%Future work may propose alternative definitions of self-influences inference in order to range over
-%different parametrization configurations.
-\end{comment}
-
-We are then able to infer the edges of the final IG by considering global influences (\pref{pps:inference-IG}).
-We infer a positive (resp. negative) edge if there exists a corresponding atomistic influence with the same
-sign. If a global influence is both positive and negative, we infer an unsigned edge. In the end, the
-threshold of each edge is the minimum threshold for which an atomistic influence has been found. As unsigned
-edges represent ambiguous interactions, no threshold is inferred.
+The inference of the \emph{influence switches}, which point out local changes in the influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$, requires to consider the sets of components cooperating with $b$ to hit $a$, with extra attention for the self-influence case (when $b = a$).
+The method relies on the comparison of the focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$.
+We are then able to infer a positive (resp. negative) edge if there exists a corresponding influence switch with the same sign and the threshold of each edge is the minimum threshold for which an influence switch has been found.
+We infer an unsigned edge in case where two influence switches with a different sign are found, and no threshold is inferred.
 
 \begin{example*}
 The IG inference from the PH of \pref{fig:runningPH} gives
-$\hat{E}_+ = \{b \xrightarrow{1} a, c \xrightarrow{1} a\}$ and 
-$\hat{E}_- = \{a \xrightarrow{2} b\}$, corresponding to the IG of \pref{fig:runningBRN}.
-No self-influence are inferred ($X(a) = \{ \{b,c\} \}$, $X(b)=\{ \{a\}\}$, and $X(c)=\emptyset$).
+$E_+ = \{b \xrightarrow{1} a, c \xrightarrow{1} a\}$ and
+$E_- = \{a \xrightarrow{2} b\}$, corresponding to the IG of \pref{fig:runningBRN}.
 \end{example*}
