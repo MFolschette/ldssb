@@ -1,7 +1,7 @@
 \subsection{The Process Hitting framework}
 \label{ssec:PH}
 
-A PH (\pref{def:PH}) gathers a finite number of concurrent \emph{processes}
+A Process Hitting (PH) (\pref{def:PH}) gathers a finite number of concurrent \emph{processes}
 grouped into a finite set of \emph{sorts}.
 A process belongs to a unique sort and is noted $a_i$ where $a$ is the
 sort and $i$ the identifier of the process within the sort $a$.
@@ -15,8 +15,7 @@ An action is denoted by $\PHfrappe{a_i}{b_j}{b_k}$, which is read as
 ``$a_i$ \emph{hits} $b_j$ to make it bounce to $b_k$'',
 where $a_i,b_j,b_k$ are processes of sorts $a$ and $b$,
 called respectively \emph{hitter}, \emph{target} and
-\emph{bounce} of the action.%, and can be referred to as
-%$\PHhitter(h), \PHtarget(h), \PHbounce(h)$, respectively.
+\emph{bounce} of the action.
 
 \begin{definition}[Process Hitting]\label{def:PH}
 A \emph{Process Hitting} is a triple $(\PHs,\PHl,\PHa)$:
@@ -46,20 +45,7 @@ $\PHget{(s\play h)}{b} = b_k$ and $\forall c \in \PHs, c \neq b, \PHget{(s\play 
 \paragraph{Modeling cooperation.}
 As described in \cite{PMR10-TCSB}, a \emph{cooperative sort} allows to encode any boolean functions between processes to model cooperation.
 It is a standard PH sort that does not involve any special treatment regarding the semantics.
-However, it is worth noticing that using a cooperative sort introduces a temporal shift %by allowing the existence of interleaving of actions leading to a cooperative sort representing a past sub-state of the presence of the cooperative processes.
-which resulting behavior is an over-approximation of the realization of an instantaneous cooperation.
-
-\begin{comment}
-As described in \cite{PMR10-TCSB}, cooperation between processes to make another process bounce can be
-expressed in PH by building a \emph{cooperative sort}. This allows to encode any boolean functions
-between cooperating processes using standard PH sorts that do not involve any
-special treatment regarding the semantics of related actions.
-However, it is worth noticing they introduce a temporal shift in their application
-by allowing the existence of interleaving of actions leading to a cooperative sort representing a
-past sub-state of the presence of the cooperative processes.
-The resulting behavior is then an over-approximation of the realization of an instantaneous
-cooperation.
-\end{comment}
+However, it is worth noticing that using a cooperative sort introduces a temporal shift which resulting behavior is an over-approximation of the realization of an instantaneous cooperation.
 
 \begin{example*}
 \pref{fig:runningPH} represents a PH $(\PHs,\PHl,\PHa)$ with especially:
@@ -68,15 +54,11 @@ $\PHl_a = \{a_0,a_1,a_2\}$,
 $\PHl_b = \{b_0, b_1\}$,
 $\PHl_c = \{c_0, c_1\}$ and
 $\PHl_{bc} = \{bc_{00}, bc_{01}, bc_{10}, bc_{11}\}$.
-%Furthermore, the action $h=\PHfrappe{b_1}{a_1}{a_2}$ is playable in the state
-%$s = \state{b_1,a_1,c_0}$; and $s\play h=\state{b_1,a_2,c_0}$.
-%Sort $bc$ is an example of cooperation between processes $b_1$ and $c_1$ to make $a_1$ bounce to $a_2$:
-%a cooperative sort $bc$ is defined with 4 processes (one for each sub-state of the presence of processes $b_1$ and $c_1$), and the process $bc_{11}$ hits $a_1$ instead of the processes $b_1$ and $c_1$ independently.
 This example models a BRN where the component $a$ has three qualitative levels, components $b$ and $c$ are boolean and $bc$ is a cooperative sort.
-In this BRN, $a$ inhibits $b$ at level $2$ while $b$ and $c$ activate $a$ both independently (with direct actions such as
-$\PHfrappe{b_0}{a_2}{a_1}$) or through a cooperation (with action defined the cooperative sort $bc$, such as
+In this BRN, $a$ inhibits $b$ at level $2$ while $b$ and $c$ activate $a$ independently (with direct actions such as
+$\PHfrappe{b_0}{a_2}{a_1}$) or through a cooperation (with actions defined with the cooperative sort $bc$, such as
 $\PHfrappe{bc_{11}}{a_1}{a_2}$).
-Hence, because of the cooperative sort $bc$, the reachability of $a_2$ and $a_0$ is conditioned by the active process of both $b$ and $c$.
+Thus, the reachability of $a_2$ and $a_0$ is conditioned by a cooperation involving $b$ and $c$.
 
 \begin{figure}[h]
 \centering

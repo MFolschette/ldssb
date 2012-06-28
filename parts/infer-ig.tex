@@ -1,7 +1,6 @@
 \section{Interaction Graph Inference}\label{sec:infer-IG}
 
 In order to infer a complete BRN, one has to find the Interaction Graph (IG) first, as some constraints on the parametrization rely on it.
-%Inferring the IG is an abstraction step which consists in determining the global influence of components on each of its successors.
 Inferring the IG is an abstraction step which consists, from atomistic actions of a PH, in determining the global influence of every component on each of its successors.
 We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference is to be performed.
 
@@ -16,19 +15,14 @@ If the set of focal processes is empty for a given context, this means that no s
 \subsection{Well-formed Process Hitting for Interaction Graph Inference}\label{ssec:wf}
 
 The inference of an IG from a PH assumes that the PH defines two types of sorts: the sorts corresponding to BRN components, that will appear in the IG, and the cooperative sorts.
-%characterizing a \emph{well-formed} PH for IG inference.
 The identification of sorts modeling components relies on the observation that their processes represent (ordered) qualitative levels;
 hence, to respect BRNs dynamics, an action on such a sort cannot make it bounce to a process at a distance more than one.
-%The set of sorts satisfying such a condition is referred to as $\Gamma$, % (\pref{eq:PH-components})
-%and is therefore the set of components of the BRN to infer.
 Any sort that does not act as a component should then be treated as a cooperative sort, whose role is to compute the current state of set of cooperating processes, as explained in \pref{ssec:PH}.
-Thus, for each sub-state of its predecessors, a cooperative sort should converge to a unique focal process. %, as expressed by \pref{pro:wf-cooperative-sort}.
-%Finally, \pref{pro:wf-ph} sums up the conditions for a Process Hitting to be suitable for IG inference.
+Thus, for each sub-state of its predecessors, a cooperative sort should converge to a unique focal process.
 In addition of having either component sorts or well-formed cooperative sorts, we also require that there is no cycle between cooperative sorts, and that sorts being never hit (\ie serving as an invariant environment) are components.
 
 \begin{example*}
-In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort, % as defined in \pref{pro:wf-cooperative-sort},
-because:
+In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort, because:
 \begin{align*}
 \focals(bc, \PHl_{bc}, \{b_0, c_0\} \cup \PHl_{bc}) = \{bc_{00}\} && \focals(bc, \PHl_{bc}, \{b_0, c_1\} \cup \PHl_{bc}) = \{bc_{01}\} \\
 \focals(bc, \PHl_{bc}, \{b_1, c_0\} \cup \PHl_{bc}) = \{bc_{10}\} && \focals(bc, \PHl_{bc}, \{b_1, c_1\} \cup \PHl_{bc}) = \{bc_{11}\}
@@ -40,25 +34,12 @@ Hence, this PH is well-formed for IG inference, and $a$, $b$ and $c$ are the com
 
 \subsection{Interaction Inference}\label{ssec:infer-IG}
 
-%At this point we can divide the set of sorts $\PHs$ into components ($\Gamma$, see \pref{eq:PH-components}) and cooperative sorts ($\PHs \setminus \Gamma$) that will not appear in the IG. 
-%We define as $\PHpredec{a}$ (\pref{eq:ph_predec}) the set of \emph{predecessors} of a sort $a$, that is, the sorts influencing $a$
-%by considering direct actions and possible intermediate cooperative sorts.
-%The \emph{regulators} of $a$, denoted $\PHpredecgene{a}$ (\pref{eq:regulators}), are its predecessors that are components.
-We define the \emph{predecessors} of a sort $a$ as the sorts influencing $a$ through direct actions or possible intermediate cooperative sorts,
-and the \emph{regulators} of $a$ as its predecessors that are components.
-Inferring the underlying IG of a PH consists in finding the influence on a component of all of its regulators.
-This is analogous to standard IG inferences from discrete maps \cite{RiCo07}.
+Inferring the underlying IG of a PH consists in finding the influence of each regulator on a component.
 We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
-This reasoning can be straightforwardly applied %to a PH when inferring the influence of $b$ on $a$
-when $b\neq a$, % (\pref{eq:edges-inference-b}),
-by considering the set of components cooperating with $b$ to hit $a$. %(\pref{eq:cooperating-with-b}).
-In the case of a self-influence (when $b = a$) it is required to consider the distinct groups of sorts having a cooperation on $a$.
-Finally, the method relies on the comparison of the focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$.
-
-The inference of the \emph{influence switches}, which point out local changes in the influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$, requires to consider the sets of components cooperating with $b$ to hit $a$, with extra attention for the self-influence case (when $b = a$).
+The inference of the \emph{influence switches}, which point out local changes in the influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$, requires to consider the whole set of components cooperating with $b$ to hit $a$.
 The method relies on the comparison of the focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$.
-We are then able to infer a positive (resp. negative) edge if there exists a corresponding influence switch with the same sign and the threshold of each edge is the minimum threshold for which an influence switch has been found.
-We infer an unsigned edge in case where two influence switches with a different sign are found, and no threshold is inferred.
+We are able to infer a positive (resp. negative) edge if there exist corresponding influence switches with the same sign only; the threshold of such an edge is the minimum threshold for which an influence switch has been found.
+We infer an unsigned edge (with non threshold) when two influence switches with different signs are found.
 
 \begin{example*}
 The IG inference from the PH of \pref{fig:runningPH} gives

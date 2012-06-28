@@ -3,7 +3,6 @@ Thomas' formalism, here inspired by \cite{Richard06,BernotSemBRN}, lies on two c
 First, the \emph{Interaction Graph} (IG) models the structure of the system by defining the components' mutual influences.
 Its nodes represent components, while its edges labeled with a threshold stand for either positive or negative interactions (\pref{def:ig});
 $l_a$ denotes the maximum level of any component $a$.
-%We allow any number of levels for the components, regardless of the number of outgoing edges, in order to be as general as possible.
 
 \begin{definition}[Interaction Graph]
 \label{def:ig}
@@ -17,32 +16,14 @@ $\nexists a \xrightarrow{t'} b \in E_+ \text{ (resp. $E_-$)}, t' \neq t$
 and $\nexists a \xrightarrow{t'} b \in E_-\text{ (resp. $E_+$)}, t' \in \mathbb{N}$.
 \end{definition}
 
-\begin{comment}
-\begin{definition}[Effective levels ($\levels$)]\label{def:levels}
-Let $(\Gamma,E_+,E_-)$ be an IG and $a, b \in \Gamma$ two of its components:
-\begin{itemize}
-  \item if $a \xrightarrow{t} b \in E_+$, $\levelsA{a}{b} \DEF [t; l_a]$ and
-    $\levelsI{a}{b} \DEF [0; t-1]$;
-  \item if $a \xrightarrow{t} b \in E_-$, $\levelsA{a}{b} \DEF [0; t-1]$ and
-    $\levelsI{a}{b} \DEF [t; l_a]$;
-  \item otherwise, $\levelsA{a}{b} \DEF \levelsI{a}{b} \DEF \emptyset$.
-\end{itemize}
-\end{definition}
-\end{comment}
-
 \noindent
 For an interaction of the IG to take place, the expression level of its head component has to be higher than its threshold; otherwise, the opposite influence is expressed.
-%Thus, we call $\levelsA{a}{b}$ (resp. $\levelsI{a}{b}$) the levels of $a$ where it is an activator (resp. inhibitor) of $b$ (\pref{def:levels}).
 For all component $a \in \Gamma$, $\GRNreg{a} \DEF \{ b\in\Gamma\mid \exists b\xrightarrow t a\in E_+\cup E_- \}$
 is the set of its regulators.
 A \emph{state} $s$ of an IG $(\Gamma, E_+, E_-)$ is an element in $\prod_{a \in \Gamma} [0;l_a]$
 and $\GRNget{s}{a}$ refers to the level of component $a$ in $s$.
 
-%Then, the \emph{parametrization} specifies the levels to which tends a component when a given configuration of its regulators applies.
 The specificity of Thomas' approach then lies in the use of discrete \emph{parameters} to represent the focal level intervals (\pref{def:param}).
-% towards which a component will evolve in each configuration of its regulators.
-%Indeed, for each possible state of a BRN, all regulators of a component $a$ can be divided into \emph{activators} and \emph{inhibitors}, given their type of interaction and expression level.
-%, referred to as the \emph{resources} of $a$ in this state (\pref{def:resources}).
 While the use of intervals as parameters does not add expressivity in boolean networks, it allows to specify a larger range of dynamics in the general case (w.r.t. to a fixed IG).
 Indeed, if a parameter is an interval of three values, it is impossible to split the three cases with the boolean definition of resources.
 
@@ -53,22 +34,6 @@ in the states where its activators (resp. inhibitors) are the regulators in set 
 The complete map $K$ of discrete parameters for $\IG$ is called a \emph{parametrization} of $\IG$.
 \end{definition}
 
-\begin{comment}
-\begin{definition}[Resources $\GRNres{a}{s}$]\label{def:resources}
-For a given state $s$ of a BRN, we define the \emph{activators} $A$ and \emph{inhibitors} $B$ of $a$ in $s$ as $\GRNres{a}{s} = A,B$, where:
-\begin{align*}
-  A &= \{b \in \Gamma \mid \GRNget{s}{b} \in \levelsA{b}{a}\} \\
-  B &= \{b \in \Gamma \mid \GRNget{s}{b} \in \levelsI{b}{a}\}
-\end{align*}
-We also denote: $\GRNallres{a} = \{(A;B) \mid \exists s \in \textstyle\prod_{a \in \Gamma} [0;l_a], \GRNres{a}{s} = A,B\}$
-\end{definition}
-
-%\begin{example*}
-%\pref{fig:runningBRN}(right) gives a Parametrization of the IG of \pref{fig:runningBRN}(left).
-%\end{example*}
-\end{comment}
-
-%At last, \pref{def:dynamics} gives the asynchronous dynamics of a BRN using Thomas' parameters.
 At last, dynamics are defined in BRN in an unitary and asynchronous way:
 from a given state $s$, a transition to another state $s'$ is possible provided that only one component $a$ will evolve of exactly one level towards $K_{a,A,B}$, where $A$ (resp. $B$) is the set of activators (resp. inhibitors) of $a$ in $s$.
 

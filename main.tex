@@ -82,7 +82,7 @@ LIX, \'Ecole Polytechnique, 91128 Palaiseau Cedex, France.
 
 \maketitle
 
-\begin{abstract}
+\begin{comment}
 \parindent 0.5cm
 The Process Hitting (PH) is a recently introduced framework to model concurrent processes.
 Its major originality lies in a specific restriction on the causality of actions, which
@@ -99,9 +99,20 @@ between components.
 Then the inference of corresponding Thomas' models is provided using Answer Set Programming,
 which allows notably an efficient enumeration of (possibly numerous) compatible parametrizations.
 
-In addition to giving a formal link between different approaches for qualitative BRNs modeling, 
+In addition to giving a formal link between different approaches for qualitative BRNs modeling,
 this work emphasizes the ability of PH to deal with large BRNs with incomplete knowledge on
 cooperations, where Thomas' approach fails because of the combinatorics of parameters.
+\end{comment}
+\begin{abstract}
+The Process Hitting (PH) is a recently introduced framework to model concurrent processes.
+It is notably suitable to model Biological Regulatory Networks (BRNs) with partial knowledge
+of cooperations by defining the most permissive dynamics.
+On the other hand, the qualitative modeling of BRNs has been widely addressed using Ren\'e Thomas'
+formalism.
+Given a PH model of a BRN, we first tackle the inference of the underlying Interaction Graph
+between components.
+Then the inference of corresponding Thomas' models is provided by inferring some parameters and
+enumerating the (possibly numerous) compatible parametrizations.
 \end{abstract}
 
 
