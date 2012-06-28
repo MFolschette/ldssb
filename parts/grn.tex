@@ -1,13 +1,8 @@
 \subsection{Thomas' modeling}
-Thomas' formalism, here inspired by \cite{Richard06,BernotSemBRN}, lies on two complementary
-descriptions of the system. First, the
-\emph{Interaction Graph} (IG) models the structure of the system by defining the components'
-mutual influences.
-The \emph{parametrization} then specifies the levels to which tends a component when a given
-configuration of its regulators applies.
-
-The IG is composed of nodes that represent components, and edges labeled with a threshold that stand
-for either positive or negative interactions (\pref{def:ig}); $l_a$ denotes the maximum level of any component $a$.
+Thomas' formalism, here inspired by \cite{Richard06,BernotSemBRN}, lies on two complementary descriptions of the system.
+First, the \emph{Interaction Graph} (IG) models the structure of the system by defining the components' mutual influences.
+Its nodes represent components, while its edges labeled with a threshold stand for either positive or negative interactions (\pref{def:ig});
+$l_a$ denotes the maximum level of any component $a$.
 %We allow any number of levels for the components, regardless of the number of outgoing edges, in order to be as general as possible.
 
 \begin{definition}[Interaction Graph]
@@ -35,29 +30,24 @@ Let $(\Gamma,E_+,E_-)$ be an IG and $a, b \in \Gamma$ two of its components:
 \end{definition}
 \end{comment}
 
+\noindent
 For an interaction of the IG to take place, the expression level of its head component has to be higher than its threshold; otherwise, the opposite influence is expressed.
-Thus, we call $\levelsA{a}{b}$ (resp. $\levelsI{a}{b}$) the levels of $a$ where it is an
-activator (resp. inhibitor) of $b$ (\pref{def:levels}). % (\pref{def:levels}).
+%Thus, we call $\levelsA{a}{b}$ (resp. $\levelsI{a}{b}$) the levels of $a$ where it is an activator (resp. inhibitor) of $b$ (\pref{def:levels}).
 For all component $a \in \Gamma$, $\GRNreg{a} \DEF \{ b\in\Gamma\mid \exists b\xrightarrow t a\in E_+\cup E_- \}$
 is the set of its regulators.
+A \emph{state} $s$ of an IG $(\Gamma, E_+, E_-)$ is an element in $\prod_{a \in \Gamma} [0;l_a]$
+and $\GRNget{s}{a}$ refers to the level of component $a$ in $s$.
 
-A \emph{state} $s$ of an IG $(\Gamma, E_+, E_-)$ is an element in $\prod_{a \in \Gamma} [0;l_a]$.
-$\GRNget{s}{a}$ refers to the level of component $a$ in $s$.
-The specificity of Thomas' approach lies in the use of discrete \emph{parameters} to represent the
-focal level interval towards which the component will evolve in each configuration of its regulators
-(\pref{def:param}).
-Indeed, for each possible state of a BRN, all regulators of a component $a$ can be divided into
-\emph{activators} and \emph{inhibitors}, given their type of interaction and expression level.
+%Then, the \emph{parametrization} specifies the levels to which tends a component when a given configuration of its regulators applies.
+The specificity of Thomas' approach then lies in the use of discrete \emph{parameters} to represent the focal level intervals (\pref{def:param}).
+% towards which a component will evolve in each configuration of its regulators.
+%Indeed, for each possible state of a BRN, all regulators of a component $a$ can be divided into \emph{activators} and \emph{inhibitors}, given their type of interaction and expression level.
 %, referred to as the \emph{resources} of $a$ in this state (\pref{def:resources}).
-
-While the use of intervals as parameters values does not add expressivity in boolean
-networks, it allows to specify a larger range of dynamics in the general case (w.r.t. to a fixed
-IG).
-Indeed, if a parameter is an interval of three values, it is impossible to
-split the three cases with the boolean definition of resources.
+While the use of intervals as parameters does not add expressivity in boolean networks, it allows to specify a larger range of dynamics in the general case (w.r.t. to a fixed IG).
+Indeed, if a parameter is an interval of three values, it is impossible to split the three cases with the boolean definition of resources.
 
 \begin{definition}[Discrete parameter $K_{a,A,B}$ and Parametrization $K$]\label{def:param}
-For a given component $a \in \Gamma$ and $A$ (resp. $B$) $\subset \GRNreg{a}$ a set of its activators (resp. inhibitors) such that $A \cup B = \GRNreg{a}$ and $A \cap B = \emptyset$,
+For a given component $a \in \Gamma$ and $A$ (resp. $B$) $\subset \GRNreg{a}$ a set of its \emph{activators} (resp. \emph{inhibitors}) such that $A \cup B = \GRNreg{a}$ and $A \cap B = \emptyset$,
 the discrete \emph{parameter} $K_{a,A,B} = [i; j]$ is a non-empty interval towards which $a$ will tend
 in the states where its activators (resp. inhibitors) are the regulators in set $A$ (resp. $B$).
 The complete map $K$ of discrete parameters for $\IG$ is called a \emph{parametrization} of $\IG$.

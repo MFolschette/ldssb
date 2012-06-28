@@ -10,13 +10,11 @@ At any time, one and only one process of each sort is present; a state of the PH
 The concurrent interactions between processes are defined by a set of
 \emph{actions}.
 Actions describe the replacement of a process by another of the same sort
-conditioned by the presence of at most one other process in the current
-state of the PH.
-An action is denoted by $\PHfrappe{a_i}{b_j}{b_k}$ where $a_i,b_j,b_k$ are processes
-of sorts $a$ and $b$.
-An action $h=\PHfrappe{a_i}{b_j}{b_k}$ is read as ``$a_i$ \emph{hits} $b_j$ to
-make it bounce to $b_k$'', and
-$a_i,b_j,b_k$ are called respectively \emph{hitter}, \emph{target} and
+conditioned by the presence of at most one other process in the current state.
+An action is denoted by $\PHfrappe{a_i}{b_j}{b_k}$, which is read as
+``$a_i$ \emph{hits} $b_j$ to make it bounce to $b_k$'',
+where $a_i,b_j,b_k$ are processes of sorts $a$ and $b$,
+called respectively \emph{hitter}, \emph{target} and
 \emph{bounce} of the action.%, and can be referred to as
 %$\PHhitter(h), \PHtarget(h), \PHbounce(h)$, respectively.
 
@@ -32,28 +30,26 @@ the finite set of \emph{processes} of sort $a\in\Sigma$ and $l_a$ a positive int
 	\hspace*{2cm} $\wedge b_j\neq b_k \wedge a=b\Rightarrow a_i=b_j\}$
 			is the finite set of \emph{actions}.
 \end{itemize}
-$\PHproc$ denotes the set of all processes ($\PHproc \DEF \{ a_i\mid a\in\PHs \wedge a_i\in\PHl_a\}$).
+%$\PHproc$ denotes the set of all processes ($\PHproc \DEF \{ a_i\mid a\in\PHs \wedge a_i\in\PHl_a\}$).
 \end{definition}
 
 \noindent
-%The sort of a process $a_i$ is referred to as $\PHsort(a_i)=a$ and the set of
-%sorts present in an action $h\in\PHa$ as 
-%$\PHsort(h) = \{\PHsort(\PHhitter(h)),\PHsort(\PHtarget(h))\}$.
-Given a state $s\in \PHl$, the process of sort $a\in\PHs$ present in $s$ is
-denoted by $\PHget{s}{a}$, that is the $a$-coordinate of the state $s$.
+%The sort of a process $a_i$ is referred to as $\PHsort(a_i)=a$ and the set of %sorts present in an action $h\in\PHa$ as  %$\PHsort(h) = \{\PHsort(\PHhitter(h)),\PHsort(\PHtarget(h))\}$.
+Given a state $s\in \PHl$, the process of sort $a\in\PHs$ present in $s$ is denoted by $\PHget{s}{a}$, that is the $a$-coordinate of the state $s$.
 %If $a_i\in \PHl_a$, we define the notation $a_i\in s \EQDEF \PHget{s}{a}=a_i$.
-For all sort $a \in \PHs$, $\PHdirectpredec{a} \DEF \{b \in \PHs \mid \exists \PHfrappe{b_i}{a_j}{a_k}\in\PHa \}$
-is the set of its direct predecessors.
-
-An action $h=\PHfrappe{a_i}{b_j}{b_k} \in\PHa$ is \emph{playable} in $s\in L$
-if and only if $\PHget{s}{a}=a_i$ and $\PHget{s}{b}=b_j$.
-In such a case, $(s\play h)$ stands for the state resulting from the play of
-the action $h$ in $s$, that is 
-$\PHget{(s\play h)}{b} = b_k$ and 
-$\forall c\in\PHs, c\neq b, \PHget{(s\play h)}{c} = \PHget{s}{c}$.
+%For all sort $a \in \PHs$, $\PHdirectpredec{a} \DEF \{b \in \PHs \mid \exists \PHfrappe{b_i}{a_j}{a_k}\in\PHa \}$ is the set of its direct predecessors.
+An action $h=\PHfrappe{a_i}{b_j}{b_k} \in \PHa$ is \emph{playable} in $s \in L$ if and only if $\PHget{s}{a}=a_i$ and $\PHget{s}{b} = b_j$.
+In such a case, $(s\play h)$ stands for the state resulting from the play of the action $h$ in $s$, with
+$\PHget{(s\play h)}{b} = b_k$ and $\forall c \in \PHs, c \neq b, \PHget{(s\play h)}{c} = \PHget{s}{c}$.
 %For the sake of clarity, $((s\play h)\play h')$, $h'\in\PHa$ is abbreviated as $(s\play h\play h')$.
 
 \paragraph{Modeling cooperation.}
+As described in \cite{PMR10-TCSB}, a \emph{cooperative sort} allows to encode any boolean functions between processes to model cooperation.
+It is a standard PH sort that does not involve any special treatment regarding the semantics.
+However, it is worth noticing that using a cooperative sort introduces a temporal shift %by allowing the existence of interleaving of actions leading to a cooperative sort representing a past sub-state of the presence of the cooperative processes.
+which resulting behavior is an over-approximation of the realization of an instantaneous cooperation.
+
+\begin{comment}
 As described in \cite{PMR10-TCSB}, cooperation between processes to make another process bounce can be
 expressed in PH by building a \emph{cooperative sort}. This allows to encode any boolean functions
 between cooperating processes using standard PH sorts that do not involve any
@@ -63,6 +59,7 @@ by allowing the existence of interleaving of actions leading to a cooperative so
 past sub-state of the presence of the cooperative processes.
 The resulting behavior is then an over-approximation of the realization of an instantaneous
 cooperation.
+\end{comment}
 
 \begin{example*}
 \pref{fig:runningPH} represents a PH $(\PHs,\PHl,\PHa)$ with especially:
@@ -75,12 +72,9 @@ $\PHl_{bc} = \{bc_{00}, bc_{01}, bc_{10}, bc_{11}\}$.
 %$s = \state{b_1,a_1,c_0}$; and $s\play h=\state{b_1,a_2,c_0}$.
 %Sort $bc$ is an example of cooperation between processes $b_1$ and $c_1$ to make $a_1$ bounce to $a_2$:
 %a cooperative sort $bc$ is defined with 4 processes (one for each sub-state of the presence of processes $b_1$ and $c_1$), and the process $bc_{11}$ hits $a_1$ instead of the processes $b_1$ and $c_1$ independently.
-
-This PH example actually models a BRN where the component $a$ has three qualitative
-levels and components $b$ and $c$ are boolean.
-In this BRN, $a$ inhibits $b$ (when its level is at $2$) while $b$ and $c$ activate $a$ both independently (with direct actions such as
-$\PHfrappe{b_0}{a_2}{a_1}$) or through a cooperation (with action defined from the cooperative sort $bc$, such as
+This example models a BRN where the component $a$ has three qualitative levels, components $b$ and $c$ are boolean and $bc$ is a cooperative sort.
+In this BRN, $a$ inhibits $b$ at level $2$ while $b$ and $c$ activate $a$ both independently (with direct actions such as
+$\PHfrappe{b_0}{a_2}{a_1}$) or through a cooperation (with action defined the cooperative sort $bc$, such as
 $\PHfrappe{bc_{11}}{a_1}{a_2}$).
-Hence, this PH uses a cooperative sort $bc$ to express a BRN where $a$ requires both $b$ and $c$ active to reach its
-highest level, and $a$ does not become inactive unless both $b$ and $c$ are inactive.
+Hence, because of the cooperative sort $bc$, the reachability of $a_2$ and $a_0$ is conditioned by the active process of both $b$ and $c$.
 \end{example*}
