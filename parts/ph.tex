@@ -77,4 +77,83 @@ In this BRN, $a$ inhibits $b$ at level $2$ while $b$ and $c$ activate $a$ both i
 $\PHfrappe{b_0}{a_2}{a_1}$) or through a cooperation (with action defined the cooperative sort $bc$, such as
 $\PHfrappe{bc_{11}}{a_1}{a_2}$).
 Hence, because of the cooperative sort $bc$, the reachability of $a_2$ and $a_0$ is conditioned by the active process of both $b$ and $c$.
+
+\begin{figure}[h]
+\centering
+\scalebox{1.1}{
+\begin{tikzpicture}
+\path[use as bounding box] (-2,-5.2) rectangle (7,0.7);
+
+\TSort{(0,0)}{b}{2}{t}
+\TSort{(0,-3.8)}{c}{2}{b}
+\TSort{(4.5,-3)}{a}{3}{r}
+
+\TSetTick{bc}{0}{00}
+\TSetTick{bc}{1}{01}
+\TSetTick{bc}{2}{10}
+\TSetTick{bc}{3}{11}
+% \TSetSortLbcel{bc}{$\neg a\wedge b$}
+\TSort{(-0.5,-2)}{bc}{4}{b}
+
+\THit{b_1}{bend right}{bc_0}{.north}{bc_2}
+\THit{b_1}{bend right}{bc_1}{.north}{bc_3}
+\THit{b_0}{}{bc_2}{.north west}{bc_0}
+\THit{b_0}{}{bc_3}{.north west}{bc_1}
+
+\THit{c_0}{}{bc_1}{.south}{bc_0}
+\THit{c_0}{}{bc_3}{.south}{bc_2}
+\THit{c_1}{}{bc_0}{.south}{bc_1}
+\THit{c_1}{}{bc_2}{.south}{bc_3}
+
+\path[bounce, bend right=25]
+\TBounce{bc_2}{}{bc_0}{.north east}
+\TBounce{bc_3}{}{bc_1}{.north east}
+;
+\path[bounce, bend left=80, distance=30]
+\TBounce{bc_0}{}{bc_2}{.north}
+\TBounce{bc_1}{}{bc_3}{.north}
+;
+\path[bounce, bend right]
+\TBounce{bc_0}{}{bc_1}{.west}
+\TBounce{bc_2}{}{bc_3}{.west}
+;
+\path[bounce, bend left]
+\TBounce{bc_3}{}{bc_2}{.east}
+\TBounce{bc_1}{}{bc_0}{.east}
+;
+
+\THit{bc_3}{thick}{a_1}{.north west}{a_2}
+\THit{bc_0}{thick,bend right=130, in=305, distance=140}{a_1}{.south east}{a_0}
+\path[bounce, bend left=40]
+\TBounce{a_1}{thick}{a_2}{.south west}
+\TBounce{a_1}{thick}{a_0}{.north east}
+;
+
+\THit{b_0}{thick,bend left,out=50,in=150}{a_2}{.west}{a_1}
+\THit{b_1}{thick,bend left,out=80,in=70,distance=100}{a_0}{.east}{a_1}
+\path[bounce]
+\TBounce{a_2}{thick,bend right=40}{a_1}{.west}
+\TBounce{a_0}{thick,bend right=40}{a_1}{.east}
+;
+
+\THit{c_0}{thick,bend left,out=270,in=290, distance=115}{a_2}{.east}{a_1}
+\THit{c_1}{thick,}{a_0}{.north west}{a_1}
+\path[bounce]
+\TBounce{a_2}{thick,bend left=40}{a_1}{.north east}
+\TBounce{a_0}{thick,bend left=40}{a_1}{.south west}
+;
+
+\THit{a_2}{bend left, out=290, in=120}{b_1}{.south}{b_0}
+\path[bounce, bend left]
+\TBounce{b_1}{}{b_0}{.south}
+;
+
+\end{tikzpicture}
+}
+
+\caption{\label{fig:runningPH}
+A PH example with four sorts: three components ($a$, $b$ and $c$) and a cooperative sort ($bc$).
+Actions targeting processes of $a$ are in thick lines.
+}
+\end{figure}
 \end{example*}
