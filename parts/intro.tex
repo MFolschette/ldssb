@@ -13,9 +13,11 @@ model reduction (e.g., \cite{Naldi09}), %formal checking of dynamics (e.g., \cit
 or the incorporation of time (e.g., \cite{Siebert06}) % Ahmad08
 %and probability (e.g., \cite{Twardziok10-CMSB}) dimensions,
 to name but a few.
+Our work is also related to the approach of \cite{Khalis09} which relies on temporal logic, and \cite{20646302,DBLP:conf/ipcat/CorblinFTCT12} which uses constraint programming. Both aim at determining a class of models which are consistent with available partial data on the regulatory structure and dynamical properties.
 While the formal checking of dynamical properties is often limited to small networks because of the
 state graph explosion, the main drawback of this framework is the difficulty to specify Thomas'
 parameters, especially for large networks.
+In our approach, we intend to focus on the Thomas' parameters inference and we claim we are able to deal with networks containing up to 40 components.
 
 In order to address the formal checking of dynamical properties within very large BRNs, we recently
 introduced in \cite{PMR10-TCSB} a new formalism, named the \emph{``Process Hitting''} (PH), to model
@@ -39,9 +41,6 @@ The first benefit of this work is that such an approach makes possible the const
 The second contribution of our method is to enhance the knowledge of the formal links between both modelings.
 As BRNs are not limited to boolean values, the whole method can be applied to multi-valued models;
 furthermore, the method can be applied to large BRNs.
-
-Our work is related to the approach of \cite{Khalis09} which relies on temporal logic, and \cite{20646302,DBLP:conf/ipcat/CorblinFTCT12} which also uses constraint programming. Both aim at determining a class of models which are consistent with available partial data on the regulatory structure and dynamical properties.
-In our approach, we intend to focus on the Thomas' parameters inference and we claim we are able to deal with larger biological networks.
 
 \begin{comment}
 \paragraph{Outline.}
