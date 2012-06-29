@@ -40,14 +40,14 @@ These constraints lead to a family of admissible parametrizations which we can e
 This approach can be considered as abductive reasoning as some information is added by the enumeration.
 If we denote:
 \begin{itemize}
-  \item $M$ the resulting BRN that observes a behavior included into the one of the original PH,
-  \item $B$ the IG and the series of necessary parameters inferred from the original PH,
-  \item $H_K$ the hypothesis that we select the complete parametrization $K$
+  \item $M$ the resulting BRN whose behavior observes the dynamics of the PH,
+  \item $B$ the IG and the series of necessary parameters inferred from the PH,
+  \item $H_K$ the hypothesis that $K$ is an admissible complete parametrization,
 \end{itemize}
-The set of parametrizations $K$ that answers our expectations are the ones so that:
+the parametrizations $K$ that answer our expectations are then the ones so that:
 \begin{itemize}
   \item $H_K$ is compatible with $B$, that is, all parameters of $K$ are compatible with the inferred parameters in $B$,
-  \item $B \wedge H_K \models M$, that is, the parametrization $K$ found from enumeration and the inferred IG represent a BRN observing the behavior included into the behavior of the original PH.
+  \item $B \wedge H_K \models M$, that is, the inferred IG together with $K$ represent a BRN observing the behavior included into the dynamics of the original PH.
 \end{itemize}
 
 Answer Set Programming (ASP) \cite{Baral03} turns out to be effective for the enumerative searches developed in this paper,
