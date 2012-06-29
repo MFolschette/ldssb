@@ -1,0 +1,96 @@
+\appendix
+
+\section{Metazoan segmentation example}
+
+In this example we consider the model given in \cite{PMR10-TCSB} of metazoan segmentation.
+
+The initial model is given in [fig ?] represents three sorts $a$, $c$ and $f$ with no cooperative sort. The resulting BRN is given in [fig ?] and the parametrization in [table ?].
+We note that parameters $K_?$ and $K_?$ cannot be inferred due to opposite concurrent actions (activation and inhibition) on $a$ in the contexts $\{f_1 ; c_1\}$ and $\{f_0 ; c_0\}$ which lead to empty sets of focal processes.
+
+If we add a cooperation between $f$ and $c$, we can refine the dynamics to avoid these concurrent actions. Therefore, after adding a cooperative sort $fc$, it is possible to add an action $\PHfrappe{fc_{10}}{a_0}{a_1}$ representing the real behavior of the cooperating components.
+
+\begin{figure}[h]
+\centering
+\scalebox{1}{
+\begin{tikzpicture}
+\path[draw,use as bounding box] (-1,-0.8) rectangle (4,4);
+
+\TSort{(0.5,3)}{f}{2}{t}
+\TSort{(0,0)}{c}{2}{l}
+\TSort{(2,0)}{a}{2}{r}
+
+\THit{c_0}{selfhit, out=250, in=210, distance=30}{c_0}{.west}{c_1}
+\THit{c_1}{selfhit, out=120, in=150, distance=30}{c_1}{.west}{c_0}
+\THit{c_0}{}{a_0}{.west}{a_1}
+\THit{c_1}{}{a_1}{.west}{a_0}
+\path[bounce, bend left=60]
+\TBounce{c_0}{}{c_1}{.south west}
+\TBounce{c_1}{bend right=40}{c_0}{.north west}
+\TBounce{a_0}{bend left=60}{a_1}{.south west}
+\TBounce{a_1}{bend right=40}{a_0}{.north west}
+;
+
+\THit{f_1}{selfhit, out=50, in=120, distance=40}{f_1}{.north west}{f_0}
+\THit{f_1}{bend right, out=110, in=80, distance=120}{c_0}{.south east}{c_1}
+\THit{f_0}{}{c_1}{.north east}{c_0}
+\THit{f_1}{bend right, out=60, in=110, distance=40}{a_0}{.east}{a_1}
+\THit{f_0}{}{a_1}{.north}{a_0}
+\path[bounce, bend left=25]
+\TBounce{f_1}{bend right=50}{f_0}{.north}
+\TBounce{c_1}{bend left=50}{c_0}{.north east}
+\TBounce{c_0}{bend right=50}{c_1}{.south east}
+\TBounce{a_1}{bend left=50, out=100, in=120, distance=14}{a_0}{.north east}
+\TBounce{a_0}{bend right=40}{a_1}{.south east}
+;
+\end{tikzpicture}
+}
+
+\caption{\label{fig:metazoan-nocoop}
+The PH model of metazoan segmentation process. This model contains three components ($a$, $c$ and $f$) but no cooperative sort,
+leading to concurrent actions on $a$: $\PHfrappe{f_1}{a_0}{a_1}$ and $\PHfrappe{c_1}{a_1}{a_0}$.
+}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\centering
+\scalebox{1}{
+\begin{tikzpicture}
+\path[draw,use as bounding box] (-1,-0.8) rectangle (4,4);
+
+\TSort{(0.5,3)}{f}{2}{t}
+\TSort{(0,0)}{c}{2}{l}
+\TSort{(2,0)}{a}{2}{r}
+
+\THit{c_0}{selfhit, out=250, in=210, distance=30}{c_0}{.west}{c_1}
+\THit{c_1}{selfhit, out=120, in=150, distance=30}{c_1}{.west}{c_0}
+\THit{c_0}{}{a_0}{.west}{a_1}
+\THit{c_1}{}{a_1}{.west}{a_0}
+\path[bounce, bend left=60]
+\TBounce{c_0}{}{c_1}{.south west}
+\TBounce{c_1}{bend right=40}{c_0}{.north west}
+\TBounce{a_0}{bend left=60}{a_1}{.south west}
+\TBounce{a_1}{bend right=40}{a_0}{.north west}
+;
+
+\THit{f_1}{selfhit, out=50, in=120, distance=40}{f_1}{.north west}{f_0}
+\THit{f_1}{bend right, out=110, in=80, distance=120}{c_0}{.south east}{c_1}
+\THit{f_0}{}{c_1}{.north east}{c_0}
+\THit{f_1}{bend right, out=60, in=110, distance=40}{a_0}{.east}{a_1}
+\THit{f_0}{}{a_1}{.north}{a_0}
+\path[bounce, bend left=25]
+\TBounce{f_1}{bend right=50}{f_0}{.north}
+\TBounce{c_1}{bend left=50}{c_0}{.north east}
+\TBounce{c_0}{bend right=50}{c_1}{.south east}
+\TBounce{a_1}{bend left=50, out=100, in=120, distance=14}{a_0}{.north east}
+\TBounce{a_0}{bend right=40}{a_1}{.south east}
+;
+\end{tikzpicture}
+}
+
+\caption{\label{fig:metazoan-coop}
+The PH model of metazoan segmentation process. This model contains three components ($a$, $c$ and $f$) but no cooperative sort,
+leading to concurrent actions on $a$: $\PHfrappe{f_1}{a_0}{a_1}$ and $\PHfrappe{c_1}{a_1}{a_0}$.
+}
+\end{figure}
