@@ -5,9 +5,9 @@ Inferring the IG is an abstraction step which consists, from atomistic actions o
 We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference is to be performed.
 
 We call \emph{context} a set $\ctx$ of processes that are potentially active.
-Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal processes} $\focals(a,S_a,\ctx)$ %(\pref{def:focals})
-amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$. % that is possibly strict (\pref{def:strict-ctx}).
-If $\focals(a,S_a,\ctx)$ is not empty, we expect, under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
+Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal processes} $\focals(a,S_a,\ctx)$
+amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$.
+If $\focals(a,S_a,\ctx)$ is not empty, we expect, starting from a process in $S_a$ and under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
 If the set of focal processes is empty for a given context, this means that no stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
 
 
@@ -19,8 +19,20 @@ The identification of sorts modeling components relies on the observation that t
 hence, to respect BRNs dynamics, an action on such a sort cannot make it bounce to a process at a distance more than one.
 Any sort that does not act as a component should then be treated as a cooperative sort, whose role is to compute the current state of set of cooperating processes, as explained in \pref{ssec:PH}.
 Thus, for each sub-state of its predecessors, a cooperative sort should converge to a unique focal process.
-In addition of having either component sorts or well-formed cooperative sorts, we also require that there is no cycle between cooperative sorts, and that sorts being never hit (\ie serving as an invariant environment) are components.
+In addition of having either component sorts or cooperative sorts, we also require that there is no cycle between cooperative sorts, and that sorts being never hit (\ie serving as an invariant environment) are components.
 
+\begin{example*}
+In the PH of \pref{fig:runningPH}, $bc$ is a cooperative sort. Furthermore, we obtain:
+\begin{align*}
+\focals(bc, \PHl_{bc}, \{b_1, c_1\}) &= \{bc_{11}\} & \focals(a, \PHl_a, \{b_0, c_1\} &= \{a_1\} \\
+\focals(bc, \PHl_{bc}, \{b_0, c_0\}) &= \{bc_{00}\} & \focals(b, \PHl_b, \{a_1\}) &= \{b_0, b_1\}
+%\focals(bc, \PHl_{bc}, \{b_0, c_0\} \cup \PHl_{bc}) = \{bc_{00}\} && \focals(bc, \PHl_{bc}, \{b_0, c_1\} \cup \PHl_{bc}) = \{bc_{01}\} \\
+%\focals(bc, \PHl_{bc}, \{b_1, c_0\} \cup \PHl_{bc}) = \{bc_{10}\} && \focals(bc, \PHl_{bc}, \{b_1, c_1\} \cup \PHl_{bc}) = \{bc_{11}\}
+\end{align*}
+%Hence, this PH is well-formed for IG inference, and $a$, $b$ and $c$ are the components.
+\end{example*}
+
+\begin{comment}
 \begin{example*}
 In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort, because:
 \begin{align*}
@@ -29,12 +41,13 @@ In the PH of \pref{fig:runningPH}, $bc$ is a well-formed cooperative sort, becau
 \end{align*}
 Hence, this PH is well-formed for IG inference, and $a$, $b$ and $c$ are the components.
 \end{example*}
+\end{comment}
 
 
 
 \subsection{Interaction Inference}\label{ssec:infer-IG}
 
-Inferring the underlying IG of a PH consists in finding the influence of each regulator on a component.
+Inferring the underlying IG of a PH consists in finding the influence of each regulator of every component, in order to determine the sets $E_+$ and $E_-$.
 We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
 The inference of the \emph{influence switches}, which point out local changes in the influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$, requires to consider the whole set of components cooperating with $b$ to hit $a$.
 The method relies on the comparison of the focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$.
