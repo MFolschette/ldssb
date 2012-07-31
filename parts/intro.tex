@@ -7,7 +7,7 @@ differential equations, a discrete modeling approach was initiated by René Thom
 %Qualitative state graphs may be derived from which we are able to formally find out all the possible behaviors.
 Nevertheless, these dynamics can be precisely established only with regard to some kind of ``focal points'', related to as Thomas' parameters, indicating the evolutionary tendency of each component.
 
-Thomas' modeling (\pref{sec:frameworks}) has motivated numerous works around the link between the influences
+Thomas' modeling has motivated numerous works around the link between the influences
 %(summarized in the Interaction Graph)
 and the possible dynamics (e.g., \cite{RiCo07}), % RRT08
 model reduction (e.g., \cite{Naldi09}), %formal checking of dynamics (e.g., \cite{Richard06,Naldi07}), 
@@ -25,35 +25,28 @@ In our approach, we intend to focus on the Thomas' parameters inference and we c
 
 In order to address the formal checking of dynamical properties within very large BRNs, we recently
 introduced in \cite{PMR10-TCSB} a new formalism, named the \emph{``Process Hitting''} (PH), to model
-concurrent systems having components with a few qualitative levels (\pref{sec:frameworks}).
+concurrent systems having components with a few qualitative levels.
 %A PH describes, in an atomic manner, the possible evolution of the level of a component triggered by at most one other component.
 Its particular structure makes the formal analysis of BRNs with hundreds components tractable \cite{PMR12-MSCS}.
 PH is also suitable to model BRNs with different levels of abstraction in the specification of
 associated influences between components by capturing the most general dynamics.
 
-In \cite{FPIMR12-CMSB}, we firstly show (\pref{sec:infer-IG}) that starting from one PH model, it is possible to find back the underlying interactions.
+In this work\footnote{The details of our method are presented in \cite{FPIMR12-CMSB}.}, we show that starting from one PH model, it is possible to find the underlying interactions.
 We perform an exhaustive search for the possible interactions on one component from all the
 others, consistently with the knowledge of the dynamics expressed in PH.
-The second phase of our work (\pref{sec:infer-K}) concerns the Thomas' parameters inference.
-It consists in abducting the nesting set (possibly large) of parameters which necessarily
-lead to the satisfaction of the known cooperating constraints.
-%Abduction finally allows to enumerate a family of compatible BRNs whose
+The second phase of our work concerns the Thomas' parameters inference.
+It consists in abducing the (possibly large) nesting set of parameters which, together with other given conditions, sufficiently derives satisfaction of the known cooperating constraints.
 The resulting dynamics are ensured to respect the PH dynamics, \ie no spurious transitions are
 made possible.
 
 %The first benefit of this work is that such an approach
 The first benefit of our approach is that it makes possible the construction refining of BRNs with a partial and progressively brought knowledge in PH, while being able to export such models in the Thomas' framework.
 Our second contribution is to enhance the knowledge of the formal links between both modelings.
-As BRNs are not limited to boolean values, the whole method can be applied to multi-valued models;
+As BRNs are not limited to Boolean values, the whole method can be applied to multi-valued models;
 furthermore, the method can be applied to large BRNs.
 
-\begin{comment}
 \paragraph{Outline.}
 \pref{sec:frameworks} recalls the PH and Thomas frameworks;
 \pref{sec:infer-IG} defines the IG inference from PH;
 \pref{sec:infer-K} details the enumeration of Thomas parametrizations compatible with a PH;
-%and discuss its implementation in ASP.
 \pref{sec:examples} gives some information about the implementation of the method.
-%illustrates the applicability of our method on simple examples
-%and large biological models.
-\end{comment}
