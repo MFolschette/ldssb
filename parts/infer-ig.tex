@@ -7,8 +7,13 @@ We consider hereafter a global PH $(\PHs,\PHl,\PHa)$ on which the IG inference i
 We call \emph{context} a set $\ctx$ of processes that are potentially active.
 Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal processes} $\focals(a,S_a,\ctx)$
 amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$.
-If $\focals(a,S_a,\ctx)$ is not empty, we expect, starting from a process in $S_a$ and under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
-If the set of focal processes is empty for a given context, this means that no stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
+
+Let $H$ be the set of actions whose hitter is in the context $\ctx$ and whose target is in $S_a$;
+we call $G$ the digraph whose edges are $\{(a_j; a_k) \mid \PHfrappe{b_i}{a_j}{a_k} \in H\}$.
+If $G$ is acyclic, we define $\focals(a,S_a,\ctx)$ as the set of nodes of $G$ with no outgoing edge, \ie the set of processes of $a$ that are the bounce of an action in $H$ but that are not the target of any action in $H$.
+Thus, if $\focals(a,S_a,\ctx)$ is not empty, we expect, starting from a process in $S_a$ and under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
+If $G$ contains a cycle, then $\focals(a,S_a,\ctx) = \emptyset$ as there exists a sequence of actions in $H$ that can be played successively in a loop.
+%If the set of focal processes is empty for a given context, this means that no stable state can be reached in this context in a finite number of actions (due to the presence of a cycle amongst bounces).
 
 
 
