@@ -27,11 +27,12 @@ Then, the specificity of Thomas' approach lies in the use of discrete \emph{para
 While the use of intervals as parameters does not add expressivity in Boolean networks, it allows to specify a larger range of dynamics in the general case (w.r.t. a fixed IG).
 %Indeed, if a parameter is an interval of three values, it is impossible to split the three cases with the boolean definition of resources.
 
-\begin{definition}[Discrete parameter $K_{a,A,B}$ and Parametrization $K$]\label{def:param}
-For a given component $a \in \Gamma$ and $A$ (resp. $B$) $\subset \GRNreg{a}$ a set of its \emph{activators} (resp. \emph{inhibitors}) such that $A \cup B = \GRNreg{a}$ and $A \cap B = \emptyset$,
-the discrete \emph{parameter} $K_{a,A,B} = [i; j]$ is a non-empty interval towards which $a$ will tend
-in the states where its activators (resp. inhibitors) are the regulators in set $A$ (resp. $B$).
-The complete map $K$ of discrete parameters for $\IG$ is called a \emph{parametrization} of $\IG$.
+\begin{definition}[Discrete parameter $K_{x,A,B}$ and Parametrization $K$]\label{def:param}
+Let $x \in \Gamma$ be a given component and $A$ (resp. $B$) $\subset \GRNreg{x}$ a set of its \emph{activators} (resp. \emph{inhibitors}),
+such that $A \cup B = \GRNreg{a}$ and $A \cap B = \emptyset$.
+The discrete \emph{parameter} $K_{x,A,B} = [i; j]$ is a non-empty interval so that $0 \leq i \leq j \leq l_x$.
+With regard to the dynamics, $x$ will tend towards $K_{x,A,B}$ in the states where its activators (resp. inhibitors) are the regulators in set $A$ (resp. $B$).
+The complete map $K = (K_{x,A,B})_{x,A,B}$ of discrete parameters for an IG is called a \emph{parametrization} of this IG.
 \end{definition}
 
 At last, dynamics are defined in BRN in an unitary and asynchronous way:
