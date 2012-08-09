@@ -5,7 +5,7 @@ A Process Hitting (PH) (\pref{def:PH}) gathers a finite number of concurrent \em
 grouped into a finite set of \emph{sorts}.
 A sort stands for a component of the system while a process, which belongs to a unique sort, stands for one of its expression levels.
 A process is thus noted $a_i$ where $a$ is the sort and $i$ is the process identifier within the sort $a$.
-At any time, exactly one process of each sort is present; a state of the PH thus corresponds to the set of such processes.
+At any time, exactly one process of each sort is present; a state of the PH thus corresponds to such a set of processes.
  
 The concurrent interactions between processes are defined by a set of
 \emph{actions}.
@@ -53,7 +53,7 @@ Hence, $bc_{01}$ represents the sub-state $\state{b_0,c_1}$, and so on.
 Each process of sort $b$ and $c$ hit $bc$ to make it bounce to the process reflecting the status of the sorts $b$
 and $c$ (e.g., $\PHfrappe{b_1}{bc_{00}}{bc_{10}}$ and $\PHfrappe{b_1}{bc_{01}}{bc_{11}}$).
 Then, to represent the cooperation between processes $b_1$ and $c_1$,
-the process $bc_{11}$ hits $a_1$ to make it bounce to $a_2$ instead of the
+the process $bc_{11}$ hits $a_1$ to make it bounce to $a_2$ instead of
 independent hits from $b_1$ and $c_1$.
 The same cooperative sort is used to make $b_0$ and $c_0$ cooperate to hit $a_1$ and make it bounce to $a_0$.
 

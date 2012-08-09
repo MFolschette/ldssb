@@ -8,7 +8,8 @@ We denote \emph{context} a set $\ctx$ of processes that are potentially active.
 Many of the inferences defined in the rest of this paper rely on the knowledge of \emph{focal processes} $\focals(a,S_a,\ctx)$
 amongst a subset $S_a \subset \PHl_a$ of the processes of a sort $a$, w.r.t. a given context $\ctx$.
 Let $H$ be the set of actions whose hitters are in the context $\ctx$ and whose targets are in $S_a$;
-we call $G$ the digraph whose edges are $\{(a_j; a_k) \mid \PHfrappe{b_i}{a_j}{a_k} \in H\}$.
+we call $G$ the digraph whose edges are $\{(a_j; a_k) \mid \PHfrappe{b_i}{a_j}{a_k} \in H\}$
+and nodes are $S_a \cup \{a_j, a_k \mid \PHfrappe{b_i}{a_j}{a_k} \in H\}$.
 \begin{itemize}
   \item If $G$ is acyclic, we define $\focals(a,S_a,\ctx)$ as the set of nodes of $G$ with no outgoing edge, \ie the set of processes of $a$ that are the bounce of an action in $H$ but that are not the target of any action in $H$.
 Thus, if $\focals(a,S_a,\ctx)$ is not empty, we expect, starting from a process in $S_a$ and under some conditions on $\ctx$, to always reach one focal process in a bounded number of actions.
@@ -38,7 +39,7 @@ In addition of having either component sorts or cooperative sorts, we also requi
 \begin{example*}
 In the PH of \pref{fig:runningPH},
 $a$, $b$ and $c$ are valid components as they repsect the above conditions.
-Furthermore, $bc$ is a valid cooperative as:
+Furthermore, $bc$ is a valid cooperative sort as:
 \begin{align*}
 \forall i, j \in \{0, 1\}, \focals(bc, \PHl_{bc}, \{b_i, c_j\}) &= \{bc_{ij}\}
 \end{align*}
@@ -53,9 +54,9 @@ Inferring the underlying IG of a PH consists in finding the influence of each re
 We aim at inferring that $b$ activates (inhibits) $a$ if there exists a configuration where increasing the level of $b$ makes possible the increase (decrease) of the level of $a$.
 
 Inferring a global influence requires to focus on local influences first.
-We rely on the search of \emph{local influence switches} that point out local changes in the influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$.
+We rely on the search of \emph{local influence switches} of $b$ on $a$ that point out local changes in this influence (activations or inhibitions) between levels $b_i$ and $b_{i+1}$.
 It is also required to consider the whole set of components cooperating with $b$ to hit $a$, as the evolution of $a$ also depends on them.
-This method compares the set of focal processes of $a$ in a context containing $b_i$, and in the same context containing $b_{i+1}$;
+This method compares the set of focal processes of $a$ in a context containing $b_i$ and some cooperating processes, and in the same context containing $b_{i+1}$;
 a positive (resp. negative) local influence switch is found if the former is higher (resp. lower) than the latter, regarding an appropriate comparison relation on sets of processes.
 If both sets are identical, no local influence switch is inferred as the influence of $b$ on $a$ is the same for both $b_i$ and $b_{i+1}$ in this context.
 
@@ -72,17 +73,19 @@ We infer an unsigned edge (with non threshold) when two influence switches with 
 \end{comment}
 
 \begin{example*}
-In the PH of \pref{fig:runningPH}, we infer a negative influence switch of $a$ on $b$ between levels $a_1$ and $a_2$, but not between $a_0$ and $a_1$, because:
+In the PH of \pref{fig:runningPH}, we have:
 \begin{align*}
 \focals(b, \PHl_b, \{a_0\}) &= \{b_0, b_1\} & \focals(b, \PHl_b, \{a_2\}) &= \{b_0\} \\
 \focals(b, \PHl_b, \{a_1\}) &= \{b_0, b_1\}
 \end{align*}
-Therefore:
+Therefore, we infer a negative influence switch of $a$ on $b$ between levels $a_1$ and $a_2$, but not between $a_0$ and $a_1$, because:
 \begin{align*}
 \focals(b, \PHl_b, \{a_0\}) &= \focals(b, \PHl_b, \{a_1\}) \\
-\focals(b, \PHl_b, \{a_1\}) &\succcurlyeq \focals(b, \PHl_b, \{a_2\})
+\focals(b, \PHl_b, \{a_1\}) &\succ \focals(b, \PHl_b, \{a_2\})
 \end{align*}
-In the end, the IG inference from the PH of \pref{fig:runningPH} gives
+We thus deduce that: $a \xrightarrow{2} b \in E_-$.
+
+Indeed, the IG inference from the PH of \pref{fig:runningPH} gives
 $E_+ = \{b \xrightarrow{1} a, c \xrightarrow{1} a\}$ and
 $E_- = \{a \xrightarrow{2} b\}$, corresponding to the IG of \pref{fig:runningBRN}.
 \end{example*}

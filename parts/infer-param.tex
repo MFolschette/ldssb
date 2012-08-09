@@ -15,14 +15,14 @@ This inference, as for the IG inference, relies on the search of focal processes
 
 For each sort $b \in \GRNreg{a}$, we define a context that contains all processes of $b$ activating (resp. inhibiting) $a$ if $b \in A$ (resp. $B$).
 From all contexts of all predecessors of $a$, we create a global context that represents the configuration $A,B$ (including the cooperative sorts involved).
-The parameter $K_{a,A,B}$ specifies to which values $a$ eventually evolves as long as this context holds, which is precisely given by the set of focal processes.
+The parameter $K_{a,A,B}$ specifies towards which values $a$ eventually evolves as long as this context holds, which is precisely given by the set of focal processes.
 
 \begin{example*}
 In the PH of \pref{fig:runningPH}, we have in particular:
 \begin{align*}
-\focals(b,L_b,\{a_0, a_1\}) = \{b_0, b_1\} &\text{ gives: } K_{b,\{a\},\emptyset} = [0 ; 1], \\
-\focals(a,L_a,\{b_1, c_1, bc_{11}\}) = \{a_2\} &\text{ gives: } K_{a,\{b,c\},\emptyset} = [2 ; 2] \text{, and} \\
-\focals(a,L_a,\{b_1, c_0, bc_{10}\}) = \{a_1\} &\text{ gives: } K_{a,\{b\},\{c\}} = [1;1].
+\focals(b,L_b,\{a_0, a_1\}) = \{b_0, b_1\} &\text{, which gives: } K_{b,\{a\},\emptyset} = [0 ; 1], \\
+\focals(a,L_a,\{b_1, c_1, bc_{11}\}) = \{a_2\} &\text{, which gives: } K_{a,\{b,c\},\emptyset} = [2 ; 2] \text{, and} \\
+\focals(a,L_a,\{b_1, c_0, bc_{10}\}) = \{a_1\} &\text{, which gives: } K_{a,\{b\},\{c\}} = [1;1].
 \end{align*}
 \end{example*}
 
@@ -42,10 +42,10 @@ This approach can be considered as abductive reasoning as some information is ad
 If we denote:
 \begin{itemize}
   \item $M$ the fact that the behavior of the resulting BRN observes the dynamics of the PH,
-  \item $B$ the (granted) fact that the IG and the series of necessary parameters inferred from the PH are parts of the resulting BRN,
+  \item $B$ the fact (which is granted) that the IG and the series of necessary parameters inferred from the PH are parts of the resulting BRN,
   \item $H_K$ the hypothesis that $K$ is an admissible complete parametrization,
 \end{itemize}
-the parametrizations $K$ that answer our expectations are then the ones so that:
+then the parametrizations $K$ that answer our expectations are the ones so that:
 \begin{itemize}
   \item $H_K$ is compatible with $B$, that is, all parameters of $K$ are compatible with the inferred parameters,
   \item $B \wedge H_K \models M$, that is, the inferred IG together with $K$ represent a BRN observing the behavior included into the dynamics of the original PH.
